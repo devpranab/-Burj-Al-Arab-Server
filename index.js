@@ -3,6 +3,8 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 var admin = require("firebase-admin");
+require('dotenv').config();
+console.log(process.env.DB_PASS);
 
 const app = express();
 app.use(cors());
@@ -15,15 +17,14 @@ app.get("/", (req, res) => {
 });
 
 //keep in index.js to Admin SDK configuration snippet code
-var serviceAccount = require("./burj-al-arab-auth-aa3e9-firebase-adminsdk-ip9my-b0a698f82f");
+var serviceAccount = require("./configs/burj-al-arab-auth-aa3e9-firebase-adminsdk-ip9my-b0a698f82f");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
 //MongoDB Start
-const uri =
-  "mongodb+srv://arabianUser:arabianUser3453@cluster0.i8jndut.mongodb.net/?retryWrites=true&w=majority";
+const uri =`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.i8jndut.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
