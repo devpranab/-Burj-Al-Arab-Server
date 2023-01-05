@@ -65,13 +65,20 @@ client.connect((err) => {
             collection
               .find({ email: queryEmail })
               .toArray((err, documents) => {
-                res.send(documents);
+                res.status(200).send(documents);
               });
+          }
+          else {
+            res.status(401).send("un-authorized access!");
           }
         })
         .catch((error) => {
           // Handle error
+          res.status(401).send("un-authorized access!");
         });
+    }
+    else {
+      res.status(401).send("un-authorized access!");
     }
   });
 });
