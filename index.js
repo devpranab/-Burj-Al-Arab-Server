@@ -60,10 +60,10 @@ client.connect((err) => {
           const queryEmail = req.query.email;
           console.log(tokenEmail, queryEmail);
 
-          if (tokenEmail == req.query.email) {
+          if (tokenEmail == queryEmail) {
             console.log(req.headers.authorization);
             collection
-              .find({ email: req.query.email })
+              .find({ email: queryEmail })
               .toArray((err, documents) => {
                 res.send(documents);
               });
